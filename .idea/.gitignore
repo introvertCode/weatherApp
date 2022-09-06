@@ -46,4 +46,4 @@ buildNumber.properties
 .classpath
 
 #config class file
-Config.java
+/Config.java
