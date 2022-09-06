@@ -47,5 +47,5 @@ buildNumber.properties
 .classpath
 
 #config class file
-src/main/java/pl/pogoda/Config.java
+/src/main/java/pl/pogoda/Config.java
 
