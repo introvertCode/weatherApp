@@ -1,8 +1,8 @@
 package pl.pogoda.controller;
 
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import pl.pogoda.WeatherManager;
 import pl.pogoda.model.City;
 import pl.pogoda.view.ViewFactory;
@@ -11,21 +11,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.scene.layout.RowConstraints;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable{
-    City cityWeatherForecast;
+    City homeCity;
+    City destinationCity;
     WeatherManager cityWeatherForecastController;
 
     @FXML
     private Button checkWeatherBtn;
 
     @FXML
-    private TextField destinationCity;
+    private TextField destinationCityTextField;
 
     @FXML
     private TextField destinationCountry;
@@ -34,16 +33,38 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label errorLabel;
 
     @FXML
-    private Label temp1Day1;
+    private TextField homeCityTextField;
 
     @FXML
-    private ImageView weatherPic1Day1;
+    private Label hour1Day1Label;
 
     @FXML
-    private TextField yourCity;
+    private Label hour2Day1Label;
+
+    @FXML
+    private Label hour3Day1Label;
+
+    @FXML
+    private Label temp1Day1Label;
+
+    @FXML
+    private Label temp2Day1Label;
+
+    @FXML
+    private Label temp3Day1Label;
+
+    @FXML
+    private ImageView weatherPic1Day1ImgView;
+
+    @FXML
+    private ImageView weatherPic2Day1ImgView;
+
+    @FXML
+    private ImageView weatherPic3Day1ImgView;
 
     @FXML
     private TextField yourCountry;
+
 
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
@@ -57,7 +78,23 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        temp1Day1.setText("AAAA");
-        yourCity.setText("Chorzów");
+
+        homeCityTextField.setText("Chorzów");
+
+        homeCity = new City(homeCityTextField.getText());
+        System.out.println(homeCity.getCity());
+
+//        Image image = new Image("/icons/img1.png");
+        weatherPic1Day1ImgView.setImage(new Image(getClass().getResourceAsStream("/icons/img1.png")));
+
+        weatherPic1Day1ImgView.setSmooth(true);
+
+        WeatherManager wm = new WeatherManager(homeCity);
+//        weatherPic1Day1ImgView.setImage(new Image(wm.getWeather()));
+        wm.getTemperatures();
+        wm.getWeatherDates();
+        wm.getWeatherStates();
+//        temp1Day1Label.setText(wm.getTemperature());
+
     }
 }
