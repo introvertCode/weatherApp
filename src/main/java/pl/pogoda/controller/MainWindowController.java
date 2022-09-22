@@ -1,9 +1,11 @@
 package pl.pogoda.controller;
 
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pl.pogoda.WeatherManager;
+import pl.pogoda.controller.services.WeatherStateAsImage;
 import pl.pogoda.model.City;
 import pl.pogoda.view.ViewFactory;
 
@@ -85,7 +87,13 @@ public class MainWindowController extends BaseController implements Initializabl
         System.out.println(homeCity.getCity());
 
 //        Image image = new Image("/icons/img1.png");
-        weatherPic1Day1ImgView.setImage(new Image(getClass().getResourceAsStream("/icons/img1.png")));
+//        weatherPic1Day1ImgView.setImage(new Image(getClass().getResourceAsStream("/icons/img1.png")));
+        WeatherStateAsImage wsai = new WeatherStateAsImage();
+        weatherPic1Day1ImgView.setImage(wsai.getImage("shower rain"));
+
+        Tooltip t = new Tooltip("Button of doom");
+        Tooltip.install(weatherPic1Day1ImgView,t);
+
 
         weatherPic1Day1ImgView.setSmooth(true);
 

@@ -17,22 +17,24 @@ import java.util.List;
 
 public class WeatherManager {
 
-    OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
+    private OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
+
+    private WeatherTemperature weatherTemperature;
+    private WeatherDate weatherDate;
+    private WeatherState weatherState;
+
     City city;
-    String[] parts;
     List<String> temperatures = new ArrayList<String>();
     List<WeatherForecast> weatherList;
-    LocalDateTime date;
-//    LocalDate today = LocalDate.now();
-    LocalDateTime today = LocalDateTime.now();
-    int hour;
-    int day;
-    int currentDay;
+
 
 
     public WeatherManager(City city) {
         this.city = city;
         weatherList = prepareWeatherForecastAsList();
+        weatherTemperature = new WeatherTemperature(weatherList);
+        weatherDate = new WeatherDate(weatherList);
+        weatherState = new WeatherState(weatherList);
     }
 
     private List<WeatherForecast> prepareWeatherForecastAsList(){
@@ -49,32 +51,18 @@ public class WeatherManager {
     }
 
     public List<String> getTemperatures(){
-        WeatherTemperature temperature = new WeatherTemperature();
-        temperatures = temperature.setWeatherTemperature(weatherList);
+        temperatures = weatherTemperature.getTemperatures();
+        System.out.println(temperatures);
         return temperatures;
     }
 
     public void getWeatherDates(){
-
-        WeatherDate weatherDate = new WeatherDate();
-        weatherDate.setWeatherDate(weatherList);
         System.out.println(weatherDate.getDays());
         System.out.println(weatherDate.getHours());
-//        for (WeatherForecast w :prepareWeatherForecastAsList()) {
-//            System.out.println(w.getTemperature());
-//            System.out.println(w.getWeatherState().getIconId());
-//            parts = w.getTemperature().toString().split(" ");
-//
-//            System.out.println(parts[1]);
-//            System.out.println(w.getForecastTime().getClass().getName());
-//            System.out.println(w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));//string
-        }
-//        return "http://openweathermap.org/img/wn/10d@2x.png";
+    }
 
     public void getWeatherStates(){
-        WeatherState weatherState = new WeatherState();
-        weatherState.setWeatherState(weatherList);
-        System.out.println(weatherState.getWeatherStates());
+        System.out.println(weatherState.getWeatherStatesInPolish());
     }
 }
 

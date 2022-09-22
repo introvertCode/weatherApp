@@ -1,64 +1,56 @@
 package pl.pogoda.controller.weatherData;
 
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
+import javafx.scene.image.Image;
+import pl.pogoda.controller.services.DateService;
+import pl.pogoda.controller.services.WeatherStateAsImage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherState {
+public class WeatherState extends Weather{
 
-    String[] parts;
-    List<String> weatherStates = new ArrayList<String>();
+    private List<String> weatherStatesInEnglish = new ArrayList<String>();
+
+    final static int TYPE_ENGLISH = 4;
+    final static int TYPE_POLISH = 5;
+
+    List<String> weatherStatesInPolish = new ArrayList<String>();
+    List<Image> weatherStatesImages = new ArrayList<Image>();
+
+    private WeatherStateAsImage weatherStateAsImage = new WeatherStateAsImage();
 
 
-    List<WeatherForecast> weatherList;
-    LocalDateTime date;
-    //    LocalDate today = LocalDate.now();
-    LocalDateTime today = LocalDateTime.now();
-    int hour;
-    int day;
-    int currentDay;
-
-    public WeatherState() {
-
+    public WeatherState(List<WeatherForecast> weatherList) {
+        super(weatherList);
+        setWeatherState();
     }
 
-    public List<String> getWeatherStates() {
-        return weatherStates;
+    public List<String> getWeatherStatesInEnglish() {
+        return weatherStatesInEnglish;
+    }
+    public List<String> getWeatherStatesInPolish() {
+        return weatherStatesInPolish;
     }
 
-    public void setWeatherState(List<WeatherForecast> weatherList){
-        for (WeatherForecast w :weatherList) {
-            date = w.getForecastTime();
-//            w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-            hour = date.getHour();
-            System.out.println(hour);
-            day = date.getDayOfMonth();
-            currentDay = today.getDayOfMonth();
+    public List<Image> getWeatherStatesImages() {
+        return weatherStatesImages;
+    }
 
-            if (currentDay == day){
-                if (hour == 8 || hour == 14 || hour == 20 || hour == 23){
-                    weatherStates.add(w.getWeatherState().toString());
 
-                }
+    private void setWeatherState(){
 
-            } else {
-                if (hour == 8 || hour == 14 || hour == 20){
-                    weatherStates.add(w.getWeatherState().toString());
-                }
-            }
-//            System.out.println(w.getTemperature());
-//            System.out.println(w.getForecastTime());
-//            System.out.println(w.getWeatherState().getIconId());
-//            parts = w.getTemperature().toString().split(" ");
-
-//            System.out.println(parts[1]);
-//            System.out.println(w.getForecastTime().getClass().getName());
-//            System.out.println(w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));//string
-        }
-//        System.out.println(days);
-//        System.out.println(hours);
+        weatherStatesInEnglish = setDataInArrays(TYPE_ENGLISH);
+        weatherStatesInPolish = setDataInArrays(TYPE_POLISH);
+        createImageList();
         return;
+    }
+
+    private void createImageList(){
+        for(String stateString : weatherStatesInEnglish) {
+//            System.out.println(stateString);
+            weatherStatesImages.add(weatherStateAsImage.getImage(stateString));
+        }
     }
 }
