@@ -6,6 +6,7 @@ import com.github.prominence.openweathermap.api.enums.UnitSystem;
 import com.github.prominence.openweathermap.api.model.Temperature;
 import com.github.prominence.openweathermap.api.model.forecast.Forecast;
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
+import javafx.scene.image.Image;
 import pl.pogoda.controller.weatherData.WeatherDate;
 import pl.pogoda.controller.weatherData.WeatherState;
 import pl.pogoda.controller.weatherData.WeatherTemperature;
@@ -17,22 +18,29 @@ import java.util.List;
 
 public class WeatherManager {
 
-    OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
-    City city;
-    String[] parts;
-    List<String> temperatures = new ArrayList<String>();
-    List<WeatherForecast> weatherList;
-    LocalDateTime date;
-//    LocalDate today = LocalDate.now();
-    LocalDateTime today = LocalDateTime.now();
-    int hour;
-    int day;
-    int currentDay;
+    private OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
+
+    private WeatherTemperature weatherTemperature;
+    private WeatherDate weatherDate;
+    private WeatherState weatherState;
+
+    private List<WeatherForecast> weatherList;
+    private City city;
+
+//    List<String> temperatures = new ArrayList<String>();
+//    List<Integer> hours = new ArrayList<Integer>();
+//    List<Integer> days = new ArrayList<Integer>();
+//    List<String> states = new ArrayList<String>();
+
+
 
 
     public WeatherManager(City city) {
         this.city = city;
         weatherList = prepareWeatherForecastAsList();
+        weatherTemperature = new WeatherTemperature(weatherList);
+        weatherDate = new WeatherDate(weatherList);
+        weatherState = new WeatherState(weatherList);
     }
 
     private List<WeatherForecast> prepareWeatherForecastAsList(){
@@ -41,7 +49,7 @@ public class WeatherManager {
             .byCityName(city.getCity())
             .language(Language.POLISH)
             .unitSystem(UnitSystem.METRIC)
-            .count(10)
+            .count(25)
             .retrieve()
             .asJava();
 
@@ -49,32 +57,26 @@ public class WeatherManager {
     }
 
     public List<String> getTemperatures(){
-        WeatherTemperature temperature = new WeatherTemperature();
-        temperatures = temperature.setWeatherTemperature(weatherList);
-        return temperatures;
+       return weatherTemperature.getTemperatures();
     }
 
-    public void getWeatherDates(){
+    public List<Integer> getHours(){
 
-        WeatherDate weatherDate = new WeatherDate();
-        weatherDate.setWeatherDate(weatherList);
-        System.out.println(weatherDate.getDays());
-        System.out.println(weatherDate.getHours());
-//        for (WeatherForecast w :prepareWeatherForecastAsList()) {
-//            System.out.println(w.getTemperature());
-//            System.out.println(w.getWeatherState().getIconId());
-//            parts = w.getTemperature().toString().split(" ");
-//
-//            System.out.println(parts[1]);
-//            System.out.println(w.getForecastTime().getClass().getName());
-//            System.out.println(w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));//string
-        }
-//        return "http://openweathermap.org/img/wn/10d@2x.png";
+        return weatherDate.getHours();
 
-    public void getWeatherStates(){
-        WeatherState weatherState = new WeatherState();
-        weatherState.setWeatherState(weatherList);
-        System.out.println(weatherState.getWeatherStates());
+    }
+
+    public List<Integer> getDays(){
+        return weatherDate.getDays();
+
+    }
+
+    public List<String> getWeatherStates(){
+        return weatherState.getWeatherStatesInPolish();
+    }
+
+    public List<Image> getWeatherStatesImg(){
+        return weatherState.getWeatherStatesImages();
     }
 }
 
