@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Weather {
-    protected List<WeatherForecast> weatherList;
-    protected LocalDateTime date;
+    private List<WeatherForecast> weatherList;
+    private LocalDateTime date;
     //    LocalDate today = LocalDate.now();
-    protected LocalDateTime today;
+    private LocalDateTime today;
 
 
-    protected  int hour;
-    protected  int day;
-    protected  int currentDay;
+    private  int hour;
+    private  int day;
+    private  int currentDay;
 
     public Weather(List<WeatherForecast> weatherList) {
         this.weatherList = weatherList;
         this.today = DateService.getTodayDate();;
     }
 
-    protected void setTimeOfForecast(WeatherForecast weatherForecast){
+    private void setTimeOfForecast(WeatherForecast weatherForecast){
         date = weatherForecast.getForecastTime();
         hour = date.getHour();
         day = date.getDayOfMonth();
@@ -32,31 +32,30 @@ public abstract class Weather {
 
     protected <T> List<T> setDataInArrays(int type){
         List<T> results = new ArrayList<>();
-
         T data = null;
 
         for (WeatherForecast w :weatherList) {
                 setTimeOfForecast(w);
                 data = returnDataAccordingToType(type, w);
 
-            if (currentDay == day){
-                if (hour == 8 || hour == 14 || hour == 20 || hour == 23){
-                    results.add((T)data);
+            if (hour == 8 || hour == 14 || hour == 20){
+                results.add((T)data);
 
-                }
-
-            } else {
-                if (hour == 8 || hour == 14 || hour == 20){
-                    results.add((T)data);
-
-                }
             }
-//            System.out.println(w.getTemperature());
-//            System.out.println(w.getForecastTime());
-//            System.out.println(w.getWeatherState().getIconId());
-//            parts = w.getTemperature().toString().split(" ");
 
-//            System.out.println(parts[1]);
+//            if (currentDay == day){
+//                if (hour == 8 || hour == 14 || hour == 20 || hour == 23){
+//                    results.add((T)data);
+//
+//                }
+//
+//            } else {
+//                if (hour == 8 || hour == 14 || hour == 20){
+//                    results.add((T)data);
+//
+//                }
+//            }
+//            System.out.println(w.getWeatherState().getIconId());
 //            System.out.println(w.getForecastTime().getClass().getName());
 //            System.out.println(w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));//string
         }

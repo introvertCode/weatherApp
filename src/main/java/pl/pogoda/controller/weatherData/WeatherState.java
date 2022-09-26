@@ -13,8 +13,8 @@ public class WeatherState extends Weather{
 
     private List<String> weatherStatesInEnglish = new ArrayList<String>();
 
-    final static int TYPE_ENGLISH = 4;
-    final static int TYPE_POLISH = 5;
+    private final static int TYPE_ENGLISH = 4;
+    private final static int TYPE_POLISH = 5;
 
     List<String> weatherStatesInPolish = new ArrayList<String>();
     List<Image> weatherStatesImages = new ArrayList<Image>();
@@ -49,7 +49,6 @@ public class WeatherState extends Weather{
 
     private void createImageList(){
         for(String stateString : weatherStatesInEnglish) {
-//            System.out.println(stateString);
             weatherStatesImages.add(weatherStateAsImage.getImage(stateString));
         }
     }

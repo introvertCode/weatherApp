@@ -10,7 +10,7 @@ import java.util.List;
 public class WeatherTemperature extends Weather{
 
     List<String> temperatures = new ArrayList<String>();
-    final static int TYPE_TEMPERATURE = 3;
+    private final static int TYPE_TEMPERATURE = 3;
 
     public WeatherTemperature(List<WeatherForecast> weatherList) {
         super(weatherList);

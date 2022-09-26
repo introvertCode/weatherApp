@@ -19,7 +19,7 @@ public class Hours extends WeatherDate{
 
     public void setHours(){
 
-        hours = setDataInArrays(TYPE_HOURS);
+//        hours = setDataInArrays(TYPE_HOURS);
 
         return;
     }
