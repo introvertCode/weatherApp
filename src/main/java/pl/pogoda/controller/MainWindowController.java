@@ -1,16 +1,20 @@
 package pl.pogoda.controller;
 
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import pl.pogoda.WeatherManager;
-import pl.pogoda.controller.services.WeatherStateAsImage;
+import pl.pogoda.controller.services.DateService;
 import pl.pogoda.model.City;
 import pl.pogoda.view.ViewFactory;
 
@@ -19,39 +23,29 @@ import javafx.geometry.Pos;
 import javafx.fxml.FXML;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable{
     City homeCity;
     City destinationCity;
+    LocalDateTime today;
     WeatherManager cityWeatherForecastController;
     List<Label> hourLabels = new ArrayList<>();
     List<Label> temperatureLabels = new ArrayList<>();
     List<ImageView> imageViews = new ArrayList<>();
+    List<TitledPane> titledPanes = new ArrayList<>();
+    List<AnchorPane> dayAnchorPanes = new ArrayList<>();
 
-    List<Integer> hours = new ArrayList<Integer>();
-    List<String> weatherStatesInPolish = new ArrayList<String>();
-    List<Image> weatherStatesImages = new ArrayList<Image>();
-    List<String> temperatures = new ArrayList<String>();
+    List<Integer> hours = new ArrayList<>();
+    List<Integer> days = new ArrayList<>();
+    List<String> weatherStatesInPolish = new ArrayList<>();
+    List<Image> weatherStatesImages = new ArrayList<>();
+    List<String> temperatures = new ArrayList<>();
 
-
-    @FXML
-    private AnchorPane day1AnchorPane;
-
-    @FXML
-    private AnchorPane day2AnchorPane;
-
-    @FXML
-    private AnchorPane day3AnchorPane;
-
-    @FXML
-    private AnchorPane day4AnchorPane;
-
-    @FXML
-    private AnchorPane day5AnchorPane;
 
     @FXML
     private Button checkWeatherBtn;
@@ -69,158 +63,217 @@ public class MainWindowController extends BaseController implements Initializabl
     private TextField homeCityTextField;
 
     @FXML
-    private Label hour1Day1Label;
-
-    @FXML
-    private Label hour2Day1Label;
-
-    @FXML
-    private Label hour3Day1Label;
-
-    @FXML
-    private Label temp1Day1Label;
-
-    @FXML
-    private Label temp2Day1Label;
-
-    @FXML
-    private Label temp3Day1Label;
-
-    @FXML
-    private ImageView weatherPic1Day1ImgView;
-
-    @FXML
-    private ImageView weatherPic2Day1ImgView;
-
-    @FXML
-    private ImageView weatherPic3Day1ImgView;
-
-    @FXML
     private TextField yourCountry;
 
     @FXML
     private AnchorPane mainPane;
 
     @FXML
-    private TitledPane firstDayPane;
-
+    private AnchorPane firstCity;
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
+        setToday();
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        homeCityTextField.setText("Chorzów");
+        setHomeCity();
+        //        System.out.println(homeCity.getCity());
+        setWeatherController();
+        setTemperaturesHoursDatesAndStates();
+        setToday();
+        createLabelsPanesAndImageViewsLists(firstCity);
+        showWeatherOnMainView(cityWeatherForecastController);
+        TitledPanesSetText();
+        setCollapsingTitledPanes();
 
-        homeCity = new City(homeCityTextField.getText());
-        System.out.println(homeCity.getCity());
 
-
-        weatherPic1Day1ImgView.setSmooth(true);
-
-        WeatherManager wm = new WeatherManager(homeCity);
-        temperatures = wm.getTemperatures();
-        hours = wm.getHours();
-//        System.out.println(wm.getDays());
-       weatherStatesInPolish = wm.getWeatherStates();
-       weatherStatesImages = wm.getWeatherStatesImg();
-
-        createObjectLists(day1AnchorPane);
-        createObjectLists(day2AnchorPane);
-        createObjectLists(day3AnchorPane);
-        createObjectLists(day4AnchorPane);
-        createObjectLists(day5AnchorPane);
-//        int i = 0;
-
-        for(int i =0; i<wm.getHours().size();i++){
-            if( wm.getHours().get(0) > 12){
-                hourLabels.get(i + 2).setText(hours.get(i).toString()+":00");
-                hourLabels.get(i + 2).setAlignment(Pos.CENTER);
-                temperatureLabels.get(i + 2).setText(temperatures.get(i));
-                temperatureLabels.get(i + 2).setAlignment(Pos.CENTER);
-                imageViews.get(i + 2).setImage(weatherStatesImages.get(i));
-                centerImage(imageViews.get(i + 2));
-                Tooltip.install(imageViews.get(i + 2), new Tooltip(weatherStatesInPolish.get(i)));
-
-            } else if (wm.getHours().get(0) > 8) {
-                hourLabels.get(i + 1).setText(wm.getHours().get(i).toString() + ":00");
-            } else {
-                hourLabels.get(i).setText(wm.getHours().get(i).toString() + ":00");
-            }
-        }
-//        hourLabels.get(1).setText(wm.getHours().get(1).toString()+":00");
-//        imageViews.get(1).setImage(wm.getWeatherStatesImg().get(1));
-//        System.out.println(getAllNodes(mainPane));
 
     }
 
-    public void createObjectLists(AnchorPane pane){
+    private void setToday(){
+        today = DateService.getTodayDate();
+    }
 
-        for (Node node : pane.getChildren()) {
-//            System.out.println("Id: " + node.getId());
-            if (node instanceof HBox) {
-                for (Node node1 : ((HBox) node).getChildren()) {
-//                    System.out.println("Id: " + node1.getId());
-                    if (node1 instanceof GridPane) {
-                        for (Node node2 : ((GridPane) node1).getChildren()) {
-//                            System.out.println("Id: " + node2.getId());
-                            if (node2 instanceof Label){
-                                if(node2.getId().contains("hour")){
-                                    hourLabels.add((Label)node2);
-                                } else if(node2.getId().contains("temp")){
-                                    temperatureLabels.add((Label)node2);
+    private void setCollapsingTitledPanes(){
+        for (int i = 0; i < 5; i++){
+            int finalI = i;
+            titledPanes.get(i).expandedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                    titledPanes.get(finalI).setDisable(true);
+                    int indexOfCollapsedTitledPane = finalI;
+                    boolean isTitledPaneExpanded = titledPanes.get(finalI).isExpanded();
+                    collapsingTitledPanesAnimation(isTitledPaneExpanded, indexOfCollapsedTitledPane);
+                }
+            });
+        }
+    }
+
+    private void collapsingTitledPanesAnimation(boolean isExpanded, int indexOfCollapsedTitledPane){
+
+        double positionOfTitledPane;
+        int indexOfCurrentTp;
+        TranslateTransition in;
+        int yOfsset;
+
+        if (isExpanded){
+            yOfsset = 100;
+        } else {
+            yOfsset = -100;
+        }
+
+        for (TitledPane tp : titledPanes) {
+            positionOfTitledPane = tp.translateYProperty().getValue();
+            indexOfCurrentTp = titledPanes.indexOf(tp);
+            tp.setDisable(true);
+            in = new TranslateTransition(Duration.millis(300), tp);
+            if (indexOfCurrentTp > indexOfCollapsedTitledPane) {
+                in.setFromY(positionOfTitledPane);
+                in.setToY(positionOfTitledPane + yOfsset);
+                in.setInterpolator(Interpolator.EASE_IN);
+            }
+            in.setOnFinished(e -> {
+                tp.setDisable(false);
+                titledPanes.get(indexOfCollapsedTitledPane).setDisable(false);
+            });
+            in.play();
+        }
+    }
+
+     private void setHomeCity(){
+         homeCityTextField.setText("Mediolan");
+         homeCity = new City(homeCityTextField.getText());
+    }
+    private void setWeatherController(){
+        cityWeatherForecastController = new WeatherManager(homeCity);
+    }
+
+    private void setTemperaturesHoursDatesAndStates(){
+        temperatures = cityWeatherForecastController.getTemperatures();
+        hours = cityWeatherForecastController.getHours();
+        days = cityWeatherForecastController.getDays();
+        weatherStatesInPolish = cityWeatherForecastController.getWeatherStates();
+        weatherStatesImages = cityWeatherForecastController.getWeatherStatesImg();
+    }
+
+    public void createLabelsPanesAndImageViewsLists(AnchorPane mainPane){
+        Node nodeFromTitledPane = null;
+        for (Node nodeFromMainPane : mainPane.getChildren()) {
+            if (nodeFromMainPane instanceof TitledPane) {
+                titledPanes.add((TitledPane) nodeFromMainPane);
+                nodeFromTitledPane = ((TitledPane) nodeFromMainPane).getContent();
+                if (nodeFromTitledPane instanceof AnchorPane) {
+                    dayAnchorPanes.add((AnchorPane) nodeFromTitledPane);
+                    for (Node nodeFromAnchorPane : ((AnchorPane) nodeFromTitledPane).getChildren()) {
+                        if (nodeFromAnchorPane instanceof HBox) {
+                            for (Node nodeFromHBox : ((HBox) nodeFromAnchorPane).getChildren()) {
+                                if (nodeFromHBox instanceof GridPane) {
+                                    for (Node nodeFromGridPane : ((GridPane) nodeFromHBox).getChildren()) {
+                                        if (nodeFromGridPane instanceof Label) {
+                                            if (nodeFromGridPane.getId().contains("hour")) {
+                                                hourLabels.add((Label) nodeFromGridPane);
+                                            } else if (nodeFromGridPane.getId().contains("temp")) {
+                                                temperatureLabels.add((Label) nodeFromGridPane);
+                                            }
+                                        } else if (nodeFromGridPane instanceof ImageView) {
+                                            imageViews.add((ImageView) nodeFromGridPane);
+                                        }
+                                    }
                                 }
-
-                            } else if (node2 instanceof ImageView){
-                                imageViews.add((ImageView) node2);
                             }
-
-
-
-//
                         }
                     }
                 }
             }
         }
-//        System.out.println(hourLabels);
-//        System.out.println(temperatureLabels);
-//        System.out.println(imageViews);
+    }
+
+
+    public void TitledPanesSetText(){
+//        int amountOfDays = 5;
+        int counterOfDays = 0;
+        String dayOfWeekInPolish;
+
+        if (days.get(0) != today.getDayOfMonth()){
+            counterOfDays = 1;
+        }
+        for(TitledPane pane : titledPanes){
+            dayOfWeekInPolish = dayOfWeekTranslationToPolish(today.plusDays(counterOfDays).getDayOfWeek().toString());
+            pane.setText(dayOfWeekInPolish +" " + today.plusDays(counterOfDays).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            counterOfDays++;
+        }
+    }
+
+    private String dayOfWeekTranslationToPolish(String dayOfWeekInEnglish){
+        String dayOfWeekInPolish = "";
+
+        switch(dayOfWeekInEnglish){
+            case "MONDAY":
+                dayOfWeekInPolish = "PONIEDZIAŁEK";
+                break;
+            case "TUESDAY":
+                dayOfWeekInPolish = "WTOREK";
+                break;
+            case "WEDNESDAY":
+                dayOfWeekInPolish = "ŚRODA";
+                break;
+            case "THURSDAY":
+                dayOfWeekInPolish = "CZWARTEK";
+                break;
+            case "FRIDAY":
+                dayOfWeekInPolish = "PIĄTEK";
+                break;
+            case "SATURDAY":
+                dayOfWeekInPolish = "SOBOTA";
+                break;
+            case "SUNDAY":
+                dayOfWeekInPolish = "NIEDZIELA";
+                break;
+        }
+
+        return dayOfWeekInPolish;
+    }
+
+    private void showWeatherOnMainView(WeatherManager wm){
+        int offsetDependingOnCurrentHour = 0;
+
+            if( wm.getHours().get(0) > 12){
+                offsetDependingOnCurrentHour = 2;
+            } else if (wm.getHours().get(0) > 8) {
+                offsetDependingOnCurrentHour = 1;
+            }
+        int amountOfRecordsToDisplay = hourLabels.size() - offsetDependingOnCurrentHour;
+        fillLabelsAndImagesWithData(amountOfRecordsToDisplay,offsetDependingOnCurrentHour );
+    }
+    
+    private void fillLabelsAndImagesWithData(int amountOfRecordsToDisplay, int offsetDependingOnCurrentHour){
+        for(int i =0; i<amountOfRecordsToDisplay;i++) {
+            hourLabels.get(i + offsetDependingOnCurrentHour).setText(hours.get(i).toString() + ":00");
+            hourLabels.get(i + offsetDependingOnCurrentHour).setAlignment(Pos.CENTER);
+            temperatureLabels.get(i + offsetDependingOnCurrentHour).setText(temperatures.get(i));
+            temperatureLabels.get(i + offsetDependingOnCurrentHour).setAlignment(Pos.CENTER);
+            imageViews.get(i + offsetDependingOnCurrentHour).setImage(weatherStatesImages.get(i));
+            centerImage(imageViews.get(i + offsetDependingOnCurrentHour));
+            Tooltip.install(imageViews.get(i + offsetDependingOnCurrentHour), new Tooltip(weatherStatesInPolish.get(i)));
+        }
     }
 
     public void centerImage(ImageView imageView) {
         Image img = imageView.getImage();
         if (img != null) {
-            double w = 0;
-            double h = 0;
 
             double ratioX = imageView.getFitWidth() / img.getWidth();
             double ratioY = imageView.getFitHeight() / img.getHeight();
+            double reducCoeff = Math.min(ratioX, ratioY);
 
-//            System.out.println(ratioX);
-//            System.out.println(ratioY);
+            double w = img.getWidth() * reducCoeff;
+            double h = img.getHeight() * reducCoeff;
 
-            double reducCoeff = 0;
-            if(ratioX >= ratioY) {
-                reducCoeff = ratioY;
-            } else {
-                reducCoeff = ratioX;
-            }
-
-            w = img.getWidth() * reducCoeff;
-            h = img.getHeight() * reducCoeff;
-
-//            imageView.setX((imageView.getFitWidth() - w) / 2);
             imageView.setTranslateX((imageView.getFitWidth() - w) / 2);
-//            imageView.setX(2);
-
-//            imageView.setY((imageView.getFitHeight() - h) / 2);
             imageView.setTranslateY((imageView.getFitHeight() - h) / 2);
-
         }
     }
-
 }

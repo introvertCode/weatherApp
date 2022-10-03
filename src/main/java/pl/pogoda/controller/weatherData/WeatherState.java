@@ -2,22 +2,20 @@ package pl.pogoda.controller.weatherData;
 
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
 import javafx.scene.image.Image;
-import pl.pogoda.controller.services.DateService;
 import pl.pogoda.controller.services.WeatherStateAsImage;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherState extends Weather{
 
-    private List<String> weatherStatesInEnglish = new ArrayList<String>();
+    private List<String> weatherStatesInEnglish = new ArrayList<>();
 
     private final static int TYPE_ENGLISH = 4;
     private final static int TYPE_POLISH = 5;
 
-    List<String> weatherStatesInPolish = new ArrayList<String>();
-    List<Image> weatherStatesImages = new ArrayList<Image>();
+    List<String> weatherStatesInPolish = new ArrayList<>();
+    List<Image> weatherStatesImages = new ArrayList<>();
 
     private WeatherStateAsImage weatherStateAsImage = new WeatherStateAsImage();
 
@@ -33,7 +31,6 @@ public class WeatherState extends Weather{
     public List<String> getWeatherStatesInPolish() {
         return weatherStatesInPolish;
     }
-
     public List<Image> getWeatherStatesImages() {
         return weatherStatesImages;
     }
@@ -41,10 +38,9 @@ public class WeatherState extends Weather{
 
     private void setWeatherState(){
 
-        weatherStatesInEnglish = setDataInArrays(TYPE_ENGLISH);
-        weatherStatesInPolish = setDataInArrays(TYPE_POLISH);
+        weatherStatesInEnglish = setDataInList(TYPE_ENGLISH);
+        weatherStatesInPolish = setDataInList(TYPE_POLISH);
         createImageList();
-        return;
     }
 
     private void createImageList(){

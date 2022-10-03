@@ -10,13 +10,11 @@ import java.util.List;
 public abstract class Weather {
     private List<WeatherForecast> weatherList;
     private LocalDateTime date;
-    //    LocalDate today = LocalDate.now();
     private LocalDateTime today;
-
 
     private  int hour;
     private  int day;
-    private  int currentDay;
+
 
     public Weather(List<WeatherForecast> weatherList) {
         this.weatherList = weatherList;
@@ -27,10 +25,9 @@ public abstract class Weather {
         date = weatherForecast.getForecastTime();
         hour = date.getHour();
         day = date.getDayOfMonth();
-        currentDay = today.getDayOfMonth();
     }
 
-    protected <T> List<T> setDataInArrays(int type){
+    protected <T> List<T> setDataInList(int type){
         List<T> results = new ArrayList<>();
         T data = null;
 
@@ -70,10 +67,9 @@ public abstract class Weather {
         } else if (type == 2){
             data = (T) (Integer)hour;
         } else if (type == 3) {
-            String[] singleTemperature;
             String temperatureWithUnit;
-            singleTemperature = w.getTemperature().toString().split(" ");
-            temperatureWithUnit = singleTemperature[1] + "°C";
+            int temperatureAsInt = (int)Math.round(w.getTemperature().getValue());
+            temperatureWithUnit = temperatureAsInt + "°C";
             data = (T) temperatureWithUnit;
         } else if (type == 4) {
             String unEditedWeatherState = w.getWeatherState().toString();
@@ -100,7 +96,6 @@ public abstract class Weather {
                 indexesOfParenthesis.add(i);
             }
         }
-
         return indexesOfParenthesis;
     }
 

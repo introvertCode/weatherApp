@@ -1,9 +1,7 @@
 package pl.pogoda.controller.weatherData;
 
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
-import pl.pogoda.controller.services.DateService;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +28,8 @@ public class WeatherDate extends Weather{
 
     private void setWeatherDate(){
 
-        days = setDataInArrays(TYPE_DAYS);
-        hours = setDataInArrays(TYPE_HOURS);
+        days = setDataInList(TYPE_DAYS);
+        hours = setDataInList(TYPE_HOURS);
 
         return;
     }

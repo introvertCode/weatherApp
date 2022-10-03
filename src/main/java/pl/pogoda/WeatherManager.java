@@ -3,7 +3,6 @@ package pl.pogoda;
 import com.github.prominence.openweathermap.api.OpenWeatherMapClient;
 import com.github.prominence.openweathermap.api.enums.Language;
 import com.github.prominence.openweathermap.api.enums.UnitSystem;
-import com.github.prominence.openweathermap.api.model.Temperature;
 import com.github.prominence.openweathermap.api.model.forecast.Forecast;
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
 import javafx.scene.image.Image;
@@ -11,14 +10,11 @@ import pl.pogoda.controller.weatherData.WeatherDate;
 import pl.pogoda.controller.weatherData.WeatherState;
 import pl.pogoda.controller.weatherData.WeatherTemperature;
 import pl.pogoda.model.City;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherManager {
 
-    private OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
+    private final OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
 
     private WeatherTemperature weatherTemperature;
     private WeatherDate weatherDate;
@@ -49,7 +45,7 @@ public class WeatherManager {
             .byCityName(city.getCity())
             .language(Language.POLISH)
             .unitSystem(UnitSystem.METRIC)
-            .count(25)
+            .count(45)
             .retrieve()
             .asJava();
 
