@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<ScrollPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane fx:id="mainPane" prefHeight="875.0" prefWidth="940.0">
          <children>
@@ -29,7 +28,7 @@
             <Label layoutX="510.0" layoutY="63.0" prefHeight="17.0" prefWidth="54.0" text="City:" AnchorPane.rightAnchor="369.0" />
             <TextField fx:id="destinationCityTextField" layoutX="572.0" layoutY="59.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="170.0" />
             <Label fx:id="errorLabel" layoutX="101.0" layoutY="378.0" prefHeight="17.0" prefWidth="384.0" />
-            <AnchorPane fx:id="firstCity" layoutX="4.0" layoutY="98.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="475.0">
+            <AnchorPane fx:id="firstCityAnchorPane" layoutX="4.0" layoutY="98.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="475.0">
                <children>
                   <TitledPane fx:id="paneDay1" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
                     <content>
@@ -313,6 +312,300 @@
                                           <Label fx:id="temp3Day5Label" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
                                           <ImageView fx:id="weatherPic3Day5ImgView" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
                                           <Label fx:id="hour3Day5Label" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="firstCityAnchorPane1" layoutX="477.0" layoutY="98.0">
+               <children>
+                  <TitledPane fx:id="paneDay11" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <AnchorPane fx:id="day1AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <AnchorPane />
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp1Day1Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic1Day1ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour1Day1Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp2Day1Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic2Day1ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour2Day1Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp3Day1Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic3Day1ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour3Day1Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="paneDay21" layoutY="140.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <AnchorPane fx:id="day2AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <AnchorPane />
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp1Day2Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic1Day2ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour1Day2Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp2Day2Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic2Day2ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour2Day2Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp3Day2Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic3Day2ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour3Day2Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="paneDay31" layoutY="280.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <AnchorPane fx:id="day3AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <AnchorPane />
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp1Day3Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic1Day3ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour1Day3Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp2Day3Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic2Day3ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour2Day3Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp3Day3Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic3Day3ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour3Day3Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="paneDay41" layoutY="420.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <AnchorPane fx:id="day4AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <AnchorPane />
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp1Day4Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic1Day4ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour1Day4Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp2Day4Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic2Day4ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour2Day4Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp3Day4Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic3Day4ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour3Day4Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="paneDay51" layoutY="560.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <AnchorPane fx:id="day5AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <AnchorPane />
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp1Day5Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic1Day5ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour1Day5Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp2Day5Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic2Day5ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour2Day5Label1" prefHeight="22.0" prefWidth="150.0" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="100.0" prefWidth="150.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="temp3Day5Label1" prefHeight="26.0" prefWidth="152.0" GridPane.rowIndex="2" />
+                                          <ImageView fx:id="weatherPic3Day5ImgView1" fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="hour3Day5Label1" prefHeight="22.0" prefWidth="150.0" />
                                        </children>
                                     </GridPane>
                                  </children>
