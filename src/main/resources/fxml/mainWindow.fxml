@@ -13,22 +13,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane styleClass="container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <AnchorPane fx:id="mainPane" prefHeight="875.0" prefWidth="940.0">
+      <AnchorPane fx:id="mainPane" prefHeight="899.0" prefWidth="951.0" styleClass="container">
          <children>
-            <Button fx:id="checkWeatherBtn" layoutX="295.0" layoutY="834.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="344.0" text="Check weather" AnchorPane.rightAnchor="294.0" />
-            <TextField fx:id="yourCountry" layoutX="76.0" layoutY="27.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="666.0" />
-            <Separator layoutX="464.0" orientation="VERTICAL" prefHeight="831.0" prefWidth="6.0" AnchorPane.rightAnchor="463.0" />
-            <Label layoutX="14.0" layoutY="31.0" prefHeight="17.0" prefWidth="54.0" text="Country:" AnchorPane.rightAnchor="865.0" />
-            <Label layoutX="14.0" layoutY="60.0" prefHeight="17.0" prefWidth="54.0" text="City:" AnchorPane.rightAnchor="865.0" />
-            <TextField fx:id="homeCityTextField" layoutX="76.0" layoutY="56.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="666.0" />
-            <TextField fx:id="destinationCountry" layoutX="572.0" layoutY="30.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="170.0" />
-            <Label layoutX="510.0" layoutY="34.0" prefHeight="17.0" prefWidth="54.0" text="Country:" AnchorPane.rightAnchor="369.0" />
-            <Label layoutX="510.0" layoutY="63.0" prefHeight="17.0" prefWidth="54.0" text="City:" AnchorPane.rightAnchor="369.0" />
-            <TextField fx:id="destinationCityTextField" layoutX="572.0" layoutY="59.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="170.0" />
-            <Label fx:id="errorLabel" layoutX="101.0" layoutY="378.0" prefHeight="17.0" prefWidth="384.0" />
-            <AnchorPane fx:id="firstCityAnchorPane" layoutX="4.0" layoutY="98.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="475.0">
+            <Button fx:id="checkWeatherBtn" layoutX="304.0" layoutY="831.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="344.0" text="Check weather" AnchorPane.rightAnchor="303.0" />
+            <Separator layoutX="476.0" layoutY="103.0" orientation="VERTICAL" prefHeight="707.0" prefWidth="6.0" AnchorPane.rightAnchor="471.0" />
+            <Label layoutX="335.0" layoutY="18.0" text="Miasto:" />
+            <TextField fx:id="homeCityTextField" layoutX="379.0" layoutY="14.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="381.0" />
+            <Label layoutX="335.0" layoutY="57.0" text="Miasto:" AnchorPane.rightAnchor="577.0" />
+            <TextField fx:id="destinationCityTextField" layoutX="379.0" layoutY="53.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="381.0" />
+            <Label fx:id="city1" layoutX="138.0" layoutY="95.0" prefHeight="17.0" prefWidth="177.0" />
+            <Label fx:id="city2" layoutX="626.0" layoutY="95.0" prefHeight="17.0" prefWidth="177.0" />
+            <AnchorPane fx:id="firstCityAnchorPane" layoutX="7.0" layoutY="120.0" styleClass="container" AnchorPane.leftAnchor="7.0">
                <children>
                   <TitledPane fx:id="paneDay1" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
                     <content>
@@ -322,7 +319,7 @@
                   </TitledPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="firstCityAnchorPane1" layoutX="477.0" layoutY="98.0">
+            <AnchorPane fx:id="firstCityAnchorPane1" layoutX="481.0" layoutY="120.0" prefWidth="467.0" styleClass="container" AnchorPane.rightAnchor="3.0">
                <children>
                   <TitledPane fx:id="paneDay11" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
                      <content>
@@ -616,6 +613,8 @@
                   </TitledPane>
                </children>
             </AnchorPane>
+            <Label fx:id="errorLabel" layoutX="226.0" layoutY="868.0" prefHeight="17.0" prefWidth="500.0" styleClass="errorText" textAlignment="CENTER" />
+            <Button fx:id="themeSwitch" layoutX="875.0" layoutY="23.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" />
          </children>
       </AnchorPane>
    </content>
