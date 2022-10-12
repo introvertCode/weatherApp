@@ -1,9 +1,6 @@
 package pl.pogoda.controller;
 
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.github.prominence.openweathermap.api.exception.NoDataFoundException;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -12,10 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 import pl.pogoda.WeatherManager;
 import pl.pogoda.controller.services.DateService;
+import pl.pogoda.controller.services.GuiObjectsControll;
+import pl.pogoda.controller.services.WeatherServices;
+
 import pl.pogoda.model.City;
+import pl.pogoda.view.ColorTheme;
 import pl.pogoda.view.ViewFactory;
 
 import javafx.geometry.Pos;
@@ -30,33 +30,32 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable{
-    City homeCity;
-    City destinationCity;
 
     List<TextField> citiesTextFields = new ArrayList<>();
     List<City> cities = new ArrayList<>();
     LocalDateTime today;
-//    WeatherManager cityWeatherForecastController;
-//    List<Label> hourLabels = new ArrayList<>();
     List<List<Label>> hourLabelsListsList = new ArrayList<>();
-//    List<Label> temperatureLabels = new ArrayList<>();
     List<List<Label>> temperatureLabelsListsList = new ArrayList<>();
-//    List<ImageView> imageViews = new ArrayList<>();
     List<List<ImageView>> imageViewsListsList = new ArrayList<>();
-
     List<TitledPane> allTitledPanes = new ArrayList<>();
     List<List<TitledPane>> titledPanesListsList = new ArrayList<>();
     List<AnchorPane> dayAnchorPanes = new ArrayList<>();
-//    List<List<AnchorPane>> dayAnchorPanesListsList = new ArrayList<>();
-
     List<AnchorPane> citiesAnchorPanes = new ArrayList<>();
-
     List<Integer> hours = new ArrayList<>();
     List<Integer> days = new ArrayList<>();
     List<String> weatherStatesInPolish = new ArrayList<>();
     List<Image> weatherStatesImages = new ArrayList<>();
     List<String> temperatures = new ArrayList<>();
 
+    List<Label> cityLabelsList = new ArrayList<>();
+    @FXML
+    private Button themeSwitch;
+
+    @FXML
+    private Label city1;
+
+    @FXML
+    private Label city2;
 
     @FXML
     private Button checkWeatherBtn;
@@ -64,17 +63,12 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private TextField destinationCityTextField;
 
-    @FXML
-    private TextField destinationCountry;
 
     @FXML
     private Label errorLabel;
 
     @FXML
     private TextField homeCityTextField;
-
-    @FXML
-    private TextField yourCountry;
 
     @FXML
     private AnchorPane mainPane;
@@ -89,35 +83,75 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        homeCityTextField.setText("Chorzów");
+        destinationCityTextField.setText("Londyn");
+
         setCitiesAnchorPanesAndTextFieldsList(mainPane);
         setToday();
 
+        createLabelsPanesAndImageViewsLists();
         setCitiesList();
 
-        for(AnchorPane pane : citiesAnchorPanes){
-            createLabelsPanesAndImageViewsLists(pane);
+        viewWeatherForCities();
+
+
+        GuiObjectsControll.setCollapsingTitledPanes(allTitledPanes);
+
+        checkWeatherBtn.setOnAction(e -> {
+            clearData();
+            errorLabel.setText("");
+            setCitiesList();
+            viewWeatherForCities();
+
+        });
+
+        themeSwitch.setOnAction(f -> {
+
+            if (viewFactory.getColorTheme() == ColorTheme.DARK){
+                viewFactory.setColorTheme(ColorTheme.LIGHT);
+                viewFactory.updateStyles();
+            } else {
+                viewFactory.setColorTheme(ColorTheme.DARK);
+                viewFactory.updateStyles();
+            }
+        });
+
+    }
+
+    private void clearData() {
+        hours.clear();
+        days.clear();
+        weatherStatesInPolish.clear();
+        weatherStatesImages.clear();
+        temperatures.clear();
+
+        int amountOfLists = titledPanesListsList.size();
+        for(int i =0; i < amountOfLists; i++){
+            for(TitledPane pane : titledPanesListsList.get(i)){
+                pane.setText("");
+            }
+
+            for(Label label : hourLabelsListsList.get(i)){
+                label.setText("");
+            }
+
+            for(Label label : temperatureLabelsListsList.get(i)){
+                label.setText("");
+            }
+
+            for(ImageView image : imageViewsListsList.get(i)){
+                image.setImage(null);
+            }
         }
 
-        int cityCounter = 0;
-        for(City city : cities){
-            viewWeatherForCity(city, cityCounter);
-            cityCounter++;
+        for (Label label : cityLabelsList){
+            label.setText("");
         }
-
-
-
-        //        System.out.println(homeCity.getCity());
-//        setWeatherController(homeCity);
-//        setTemperaturesHoursDatesAndStates();
-
-
-//        showWeatherOnMainView(cityWeatherForecastController);
-
-        setCollapsingTitledPanes();
 
 
 
     }
+
 
     private void setCitiesAnchorPanesAndTextFieldsList(AnchorPane mainPane){
         for (Node nodeUnderMainPane : mainPane.getChildren()) {
@@ -127,18 +161,39 @@ public class MainWindowController extends BaseController implements Initializabl
                 if (nodeUnderMainPane.getId().contains("City")){
                     citiesTextFields.add((TextField)nodeUnderMainPane);
                 }
+            } else if (nodeUnderMainPane instanceof Label){
+                if (nodeUnderMainPane.getId() != null){
+                    if (nodeUnderMainPane.getId().contains("city")){
+                        cityLabelsList.add((Label)nodeUnderMainPane);
+                    }
+                }
+
             }
         }
     }
 
+    private void viewWeatherForCities(){
 
+        int cityCounter = 0;
+        try {
 
-    private void viewWeatherForCity(City city, int cityCounter){
-
-        WeatherManager weatherManager = setWeatherController(city);
-        setTemperaturesHoursDatesAndStates(weatherManager);
-        showWeatherOnMainView(weatherManager, cityCounter);
-        TitledPanesSetText();
+            for (City city : cities) {
+                WeatherManager weatherManager = setWeatherController(city);
+                setTemperaturesHoursDatesAndStates(weatherManager);
+                showWeatherOnMainView(weatherManager, cityCounter);
+                TitledPanesSetText();
+                cityLabelsList.get(cityCounter).setText(city.getCity());
+                cityCounter++;
+            }
+        }  catch (NoDataFoundException e) {
+                errorLabel.setText("Sprawdź wprowadzone dane lub połączenie internetowe!");
+                clearData();
+                cities.remove(cityCounter);
+                viewWeatherForCities();
+        }
+        catch (Exception e){
+            errorLabel.setText("Sprawdź swoje połączenie internetowe lub spróbuj za chwilę ponownie!");
+        }
 
     }
 
@@ -146,24 +201,17 @@ public class MainWindowController extends BaseController implements Initializabl
         today = DateService.getTodayDate();
     }
 
-
-
-
-
      private void setCitiesList(){
-         homeCityTextField.setText("Chorzów");
-         destinationCityTextField.setText("Londyn");
+         List<City> cities = new ArrayList<>();
          for(TextField tf : citiesTextFields) {
              if(!tf.getText().isEmpty()){
-
                  City city = new City(tf.getText());
                  cities.add(city);
              }
          }
-//         homeCity = new City(citiesTextFields.get(0).getText());
+         this.cities = cities;
     }
-    private WeatherManager setWeatherController(City city){
-//        cityWeatherForecastController = new WeatherManager(city);
+    private WeatherManager setWeatherController(City city) {
         return new WeatherManager(city);
     }
 
@@ -175,7 +223,9 @@ public class MainWindowController extends BaseController implements Initializabl
         weatherStatesImages = weatherManager.getWeatherStatesImg();
     }
 
-    public void createLabelsPanesAndImageViewsLists(AnchorPane cityPane){
+    private void createLabelsPanesAndImageViewsLists(){
+        for(AnchorPane cityPane : citiesAnchorPanes){
+
         List<Label> hourLabels = new ArrayList<>();
         List<Label> temperatureLabels = new ArrayList<>();
         List<ImageView> imageViews = new ArrayList<>();
@@ -214,13 +264,11 @@ public class MainWindowController extends BaseController implements Initializabl
         temperatureLabelsListsList.add(temperatureLabels);
         imageViewsListsList.add(imageViews);
         titledPanesListsList.add(titledPanes);
-//        this.titledPanes.add(titledPanes);
-
+        }
     }
 
 
-    public void TitledPanesSetText(){
-//        int amountOfDays = 5;
+    private void TitledPanesSetText(){
         int counterOfDays = 0;
         String dayOfWeekInPolish;
 
@@ -229,51 +277,19 @@ public class MainWindowController extends BaseController implements Initializabl
         }
         int initialDays = counterOfDays;
 
-        int amountOfLists = titledPanesListsList.size();
+        int amountOfLists = cities.size();
         for(int i =0; i < amountOfLists; i++){
             counterOfDays = initialDays;
             for(TitledPane pane : titledPanesListsList.get(i)){
-                dayOfWeekInPolish = dayOfWeekTranslationToPolish(today.plusDays(counterOfDays).getDayOfWeek().toString());
+                dayOfWeekInPolish = WeatherServices.dayOfWeekTranslationToPolish(today.plusDays(counterOfDays).getDayOfWeek().toString());
                 pane.setText(dayOfWeekInPolish +" " + today.plusDays(counterOfDays).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                 counterOfDays++;
             }
         }
-
-    }
-
-    private String dayOfWeekTranslationToPolish(String dayOfWeekInEnglish){
-        String dayOfWeekInPolish = "";
-
-        switch(dayOfWeekInEnglish){
-            case "MONDAY":
-                dayOfWeekInPolish = "PONIEDZIAŁEK";
-                break;
-            case "TUESDAY":
-                dayOfWeekInPolish = "WTOREK";
-                break;
-            case "WEDNESDAY":
-                dayOfWeekInPolish = "ŚRODA";
-                break;
-            case "THURSDAY":
-                dayOfWeekInPolish = "CZWARTEK";
-                break;
-            case "FRIDAY":
-                dayOfWeekInPolish = "PIĄTEK";
-                break;
-            case "SATURDAY":
-                dayOfWeekInPolish = "SOBOTA";
-                break;
-            case "SUNDAY":
-                dayOfWeekInPolish = "NIEDZIELA";
-                break;
-        }
-
-        return dayOfWeekInPolish;
     }
 
     private void showWeatherOnMainView(WeatherManager wm, int cityCounter){
         int offsetDependingOnCurrentHour = 0;
-
             if( wm.getHours().get(0) > 14){
                 offsetDependingOnCurrentHour = 2;
             } else if (wm.getHours().get(0) > 8) {
@@ -289,7 +305,6 @@ public class MainWindowController extends BaseController implements Initializabl
         List<Label> temperatureLabels;
         List<ImageView> imageViews;
 
-
             hourLabels = hourLabelsListsList.get(cityCounter);
             temperatureLabels = temperatureLabelsListsList.get(cityCounter);
             imageViews = imageViewsListsList.get(cityCounter);
@@ -300,74 +315,13 @@ public class MainWindowController extends BaseController implements Initializabl
                 temperatureLabels.get(i + offsetDependingOnCurrentHour).setText(temperatures.get(i));
                 temperatureLabels.get(i + offsetDependingOnCurrentHour).setAlignment(Pos.CENTER);
                 imageViews.get(i + offsetDependingOnCurrentHour).setImage(weatherStatesImages.get(i));
-                centerImage(imageViews.get(i + offsetDependingOnCurrentHour));
+                GuiObjectsControll.centerImage(imageViews.get(i + offsetDependingOnCurrentHour));
                 Tooltip.install(imageViews.get(i + offsetDependingOnCurrentHour), new Tooltip(weatherStatesInPolish.get(i)));
             }
 
     }
 
-    public void centerImage(ImageView imageView) {
-        Image img = imageView.getImage();
-        if (img != null) {
 
-            double ratioX = imageView.getFitWidth() / img.getWidth();
-            double ratioY = imageView.getFitHeight() / img.getHeight();
-            double reducCoeff = Math.min(ratioX, ratioY);
 
-            double w = img.getWidth() * reducCoeff;
-            double h = img.getHeight() * reducCoeff;
 
-            imageView.setTranslateX((imageView.getFitWidth() - w) / 2);
-            imageView.setTranslateY((imageView.getFitHeight() - h) / 2);
-        }
-    }
-
-    private void setCollapsingTitledPanes(){
-        int amountOfTitlePanes = allTitledPanes.size();
-
-        for (int i = 0; i < amountOfTitlePanes; i++){
-            int finalI = i;
-            allTitledPanes.get(i).expandedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                    allTitledPanes.get(finalI).setDisable(true);
-                    TitledPane currentTitledPane = allTitledPanes.get(finalI);
-                    int indexOfCollapsedTitledPane = finalI;
-                    boolean isTitledPaneExpanded = allTitledPanes.get(finalI).isExpanded();
-                    collapsingTitledPanesAnimation(isTitledPaneExpanded, indexOfCollapsedTitledPane, currentTitledPane);
-                }
-            });
-        }
-    }
-
-    private void collapsingTitledPanesAnimation(boolean isExpanded, int indexOfCollapsedTitledPane, TitledPane currentTitledPane){
-
-        double positionOfTitledPane;
-        int indexOfCurrentTp;
-        TranslateTransition in;
-        int yOfsset;
-
-        if (isExpanded){
-            yOfsset = 100;
-        } else {
-            yOfsset = -100;
-        }
-
-        for (TitledPane tp : allTitledPanes) {
-            positionOfTitledPane = tp.translateYProperty().getValue();
-            indexOfCurrentTp = allTitledPanes.indexOf(tp);
-            tp.setDisable(true);
-            in = new TranslateTransition(Duration.millis(300), tp);
-            if (indexOfCurrentTp > indexOfCollapsedTitledPane && tp.getParent().getId() == currentTitledPane.getParent().getId() ) {
-                in.setFromY(positionOfTitledPane);
-                in.setToY(positionOfTitledPane + yOfsset);
-                in.setInterpolator(Interpolator.EASE_IN);
-            }
-            in.setOnFinished(e -> {
-                tp.setDisable(false);
-                allTitledPanes.get(indexOfCollapsedTitledPane).setDisable(false);
-            });
-            in.play();
-        }
-    }
 }
