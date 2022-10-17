@@ -27,7 +27,7 @@
             <Label fx:id="city2" layoutX="626.0" layoutY="95.0" prefHeight="17.0" prefWidth="177.0" />
             <AnchorPane fx:id="firstCityAnchorPane" layoutX="7.0" layoutY="120.0" styleClass="container" AnchorPane.leftAnchor="7.0">
                <children>
-                  <TitledPane fx:id="paneDay1" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay1" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                     <content>
                       <AnchorPane fx:id="day1AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -85,7 +85,7 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay2" layoutY="140.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay2" layoutY="140.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day2AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -143,7 +143,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay3" layoutY="280.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay3" layoutY="280.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day3AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -201,7 +201,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay4" layoutY="420.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay4" layoutY="420.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day4AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -259,7 +259,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay5" layoutY="560.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay5" layoutY="560.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day5AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -321,7 +321,7 @@
             </AnchorPane>
             <AnchorPane fx:id="firstCityAnchorPane1" layoutX="481.0" layoutY="120.0" prefWidth="467.0" styleClass="container" AnchorPane.rightAnchor="3.0">
                <children>
-                  <TitledPane fx:id="paneDay11" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay11" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day1AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -379,7 +379,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay21" layoutY="140.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay21" layoutY="140.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day2AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -437,7 +437,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay31" layoutY="280.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay31" layoutY="280.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day3AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -495,7 +495,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay41" layoutY="420.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay41" layoutY="420.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day4AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -553,7 +553,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane fx:id="paneDay51" layoutY="560.0" prefHeight="130.0" prefWidth="453.0" text="untitled" AnchorPane.rightAnchor="0.0">
+                  <TitledPane fx:id="paneDay51" layoutY="560.0" prefHeight="130.0" prefWidth="453.0" AnchorPane.rightAnchor="0.0">
                      <content>
                         <AnchorPane fx:id="day5AnchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="456.0">
                            <children>
@@ -614,7 +614,8 @@
                </children>
             </AnchorPane>
             <Label fx:id="errorLabel" layoutX="226.0" layoutY="868.0" prefHeight="17.0" prefWidth="500.0" styleClass="errorText" textAlignment="CENTER" />
-            <Button fx:id="themeSwitch" layoutX="875.0" layoutY="23.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="27.0" />
+            <Button fx:id="themeSwitch" layoutX="875.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+            <Button fx:id="saveCitiesAndThemeBtn" layoutX="586.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" />
          </children>
       </AnchorPane>
    </content>

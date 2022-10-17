@@ -12,6 +12,7 @@ import pl.pogoda.controller.weatherData.WeatherState;
 import pl.pogoda.controller.weatherData.WeatherTemperature;
 import pl.pogoda.model.City;
 
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -22,25 +23,18 @@ public class WeatherManager {
     private WeatherTemperature weatherTemperature;
     private WeatherDate weatherDate;
     private WeatherState weatherState;
-
     private List<WeatherForecast> weatherList;
     private City city;
 
-//    List<String> temperatures = new ArrayList<String>();
-//    List<Integer> hours = new ArrayList<Integer>();
-//    List<Integer> days = new ArrayList<Integer>();
-//    List<String> states = new ArrayList<String>();
-
-
-
 
     public WeatherManager(City city) {
-            this.city = city;
-            weatherList = prepareWeatherForecastAsList();
-            weatherTemperature = new WeatherTemperature(weatherList);
-            weatherDate = new WeatherDate(weatherList);
-            weatherState = new WeatherState(weatherList);
+        this.city = city;
+        weatherList = prepareWeatherForecastAsList();
+        weatherTemperature = new WeatherTemperature(weatherList);
+        weatherDate = new WeatherDate(weatherList);
+        weatherState = new WeatherState(weatherList);
     }
+
 
     private List<WeatherForecast> prepareWeatherForecastAsList(){
         final Forecast weather = openWeatherClient

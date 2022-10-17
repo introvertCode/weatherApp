@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages = new ArrayList<>();
-    private ColorTheme colorTheme = ColorTheme.DARK;
+    private ColorTheme colorTheme = ColorTheme.DARK;;
 
     public ColorTheme getColorTheme() {
         return colorTheme;

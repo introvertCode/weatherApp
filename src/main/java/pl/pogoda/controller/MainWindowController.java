@@ -10,8 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import pl.pogoda.WeatherManager;
+import pl.pogoda.controller.persistence.DataAccess;
 import pl.pogoda.controller.services.DateService;
 import pl.pogoda.controller.services.GuiObjectsControll;
+import pl.pogoda.controller.services.ImageResolver;
 import pl.pogoda.controller.services.WeatherServices;
 
 import pl.pogoda.model.City;
@@ -27,6 +29,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable{
@@ -63,7 +66,6 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private TextField destinationCityTextField;
 
-
     @FXML
     private Label errorLabel;
 
@@ -76,6 +78,9 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private AnchorPane firstCityAnchorPane;
 
+    @FXML
+    private Button saveCitiesAndThemeBtn;
+
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         setToday();
@@ -83,9 +88,8 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        homeCityTextField.setText("Chorzów");
-        destinationCityTextField.setText("Londyn");
-
+        saveCitiesAndThemeBtn.setGraphic(ImageResolver.setSaveBtnImg());
+        loadDataFromFile();
         setCitiesAnchorPanesAndTextFieldsList(mainPane);
         setToday();
 
@@ -94,9 +98,70 @@ public class MainWindowController extends BaseController implements Initializabl
 
         viewWeatherForCities();
 
-
         GuiObjectsControll.setCollapsingTitledPanes(allTitledPanes);
+        checkWeatherBtnClick();
 
+        themeSwitch.setGraphic(ImageResolver.setThemeSwitchButtonImg(viewFactory.getColorTheme()));
+        themeSwitchBtnClick();
+
+        writeDataToFileBtnClick();
+
+    }
+
+    private void themeSwitchBtnClick(){
+        themeSwitch.setOnAction(f -> {
+
+            if (viewFactory.getColorTheme() == ColorTheme.DARK){
+                viewFactory.setColorTheme(ColorTheme.LIGHT);
+                viewFactory.updateStyles();
+                themeSwitch.setGraphic(ImageResolver.setThemeSwitchButtonImg(ColorTheme.LIGHT));
+
+
+            } else {
+                viewFactory.setColorTheme(ColorTheme.DARK);
+                viewFactory.updateStyles();
+                themeSwitch.setGraphic(ImageResolver.setThemeSwitchButtonImg(ColorTheme.DARK));
+            }
+        });
+    }
+
+    public void writeDataToFileBtnClick(){
+
+        saveCitiesAndThemeBtn.setOnAction(e->
+        {
+            List<String> providedData = new ArrayList<>();
+
+            providedData.add(viewFactory.getColorTheme().toString());
+            providedData.add(homeCityTextField.getText());
+            providedData.add(destinationCityTextField.getText());
+
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.createFile();
+            dataAccess.writeToFile(providedData);
+
+        });
+
+    }
+
+    public void loadDataFromFile(){
+        DataAccess dataAccess = new DataAccess();
+        List<String> savedData = dataAccess.readFromFile();
+        if (savedData.size()>2) {
+            String theme = savedData.get(0);
+            if (Objects.equals(theme, "DARK")) {
+                viewFactory.setColorTheme(ColorTheme.DARK);
+            } else {
+                viewFactory.setColorTheme(ColorTheme.LIGHT);
+            }
+            homeCityTextField.setText(savedData.get(1));
+            destinationCityTextField.setText(savedData.get(2));
+        }
+
+    }
+
+
+
+    private void checkWeatherBtnClick(){
         checkWeatherBtn.setOnAction(e -> {
             clearData();
             errorLabel.setText("");
@@ -104,18 +169,6 @@ public class MainWindowController extends BaseController implements Initializabl
             viewWeatherForCities();
 
         });
-
-        themeSwitch.setOnAction(f -> {
-
-            if (viewFactory.getColorTheme() == ColorTheme.DARK){
-                viewFactory.setColorTheme(ColorTheme.LIGHT);
-                viewFactory.updateStyles();
-            } else {
-                viewFactory.setColorTheme(ColorTheme.DARK);
-                viewFactory.updateStyles();
-            }
-        });
-
     }
 
     private void clearData() {
@@ -173,26 +226,26 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void viewWeatherForCities(){
+        if (cities.size()>0) {
+            int cityCounter = 0;
+            try {
 
-        int cityCounter = 0;
-        try {
-
-            for (City city : cities) {
-                WeatherManager weatherManager = setWeatherController(city);
-                setTemperaturesHoursDatesAndStates(weatherManager);
-                showWeatherOnMainView(weatherManager, cityCounter);
-                TitledPanesSetText();
-                cityLabelsList.get(cityCounter).setText(city.getCity());
-                cityCounter++;
-            }
-        }  catch (NoDataFoundException e) {
+                for (City city : cities) {
+                    WeatherManager weatherManager = setWeatherController(city);
+                    setTemperaturesHoursDatesAndStates(weatherManager);
+                    showWeatherOnMainView(weatherManager, cityCounter);
+                    TitledPanesSetText();
+                    cityLabelsList.get(cityCounter).setText(city.getCity());
+                    cityCounter++;
+                }
+            } catch (NoDataFoundException e) {
                 errorLabel.setText("Sprawdź wprowadzone dane lub połączenie internetowe!");
                 clearData();
                 cities.remove(cityCounter);
                 viewWeatherForCities();
-        }
-        catch (Exception e){
-            errorLabel.setText("Sprawdź swoje połączenie internetowe lub spróbuj za chwilę ponownie!");
+            } catch (Exception e) {
+                errorLabel.setText("Sprawdź swoje połączenie internetowe lub spróbuj za chwilę ponownie!");
+            }
         }
 
     }
