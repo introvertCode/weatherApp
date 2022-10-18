@@ -617,6 +617,7 @@
             <Button fx:id="themeSwitch" layoutX="875.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
             <Button fx:id="saveCitiesAndThemeBtn" layoutX="593.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" />
             <Label fx:id="savedLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="580.0" layoutY="70.0" prefHeight="17.0" prefWidth="61.0" textAlignment="CENTER" textFill="#17dd1d" />
+            <Button fx:id="checkCountriesCodesBtn" layoutX="101.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Sprawdź kody państw" />
          </children>
       </AnchorPane>
    </content>
