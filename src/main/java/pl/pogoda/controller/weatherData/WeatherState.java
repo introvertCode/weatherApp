@@ -8,16 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherState extends Weather{
-
     private List<String> weatherStatesInEnglish = new ArrayList<>();
-
     private final static int TYPE_ENGLISH = 4;
     private final static int TYPE_POLISH = 5;
-
     List<String> weatherStatesInPolish = new ArrayList<>();
     List<Image> weatherStatesImages = new ArrayList<>();
 
-    private WeatherServices weatherStateAsImage = new WeatherServices();
+    private final WeatherServices weatherStateAsImage = new WeatherServices();
 
 
     public WeatherState(List<WeatherForecast> weatherList) {
@@ -37,7 +34,6 @@ public class WeatherState extends Weather{
 
 
     private void setWeatherState(){
-
         weatherStatesInEnglish = setDataInList(TYPE_ENGLISH);
         weatherStatesInPolish = setDataInList(TYPE_POLISH);
         createImageList();

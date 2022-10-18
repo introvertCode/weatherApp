@@ -3,20 +3,18 @@ package pl.pogoda.controller.services;
 import javafx.scene.image.Image;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class WeatherServices {
-
 
     public Image getImage(String weatherInEnglish){
         String imageAddress;
         imageAddress = "/icons/" + weatherInEnglish.toLowerCase(Locale.ROOT) +".png";
-            Image img = new Image(getClass().getResourceAsStream(imageAddress));
-       return img;
+       return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageAddress)));
     }
 
     public static String dayOfWeekTranslationToPolish(String dayOfWeekInEnglish){
         String dayOfWeekInPolish = "";
-
         switch(dayOfWeekInEnglish){
             case "MONDAY":
                 dayOfWeekInPolish = "PONIEDZIAŁEK";
@@ -40,8 +38,6 @@ public class WeatherServices {
                 dayOfWeekInPolish = "NIEDZIELA";
                 break;
         }
-
         return dayOfWeekInPolish;
     }
-
 }

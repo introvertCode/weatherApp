@@ -3,7 +3,6 @@ package pl.pogoda;
 import com.github.prominence.openweathermap.api.OpenWeatherMapClient;
 import com.github.prominence.openweathermap.api.enums.Language;
 import com.github.prominence.openweathermap.api.enums.UnitSystem;
-import com.github.prominence.openweathermap.api.exception.NoDataFoundException;
 import com.github.prominence.openweathermap.api.model.forecast.Forecast;
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
 import javafx.scene.image.Image;
@@ -11,30 +10,23 @@ import pl.pogoda.controller.weatherData.WeatherDate;
 import pl.pogoda.controller.weatherData.WeatherState;
 import pl.pogoda.controller.weatherData.WeatherTemperature;
 import pl.pogoda.model.City;
-
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.List;
 
 public class WeatherManager {
 
     private final OpenWeatherMapClient openWeatherClient = new OpenWeatherMapClient(Config.API_KEY);
-
-    private WeatherTemperature weatherTemperature;
-    private WeatherDate weatherDate;
-    private WeatherState weatherState;
-    private List<WeatherForecast> weatherList;
-    private City city;
-
+    private final WeatherTemperature weatherTemperature;
+    private final WeatherDate weatherDate;
+    private final WeatherState weatherState;
+    private final City city;
 
     public WeatherManager(City city) {
         this.city = city;
-        weatherList = prepareWeatherForecastAsList();
+        List<WeatherForecast> weatherList = prepareWeatherForecastAsList();
         weatherTemperature = new WeatherTemperature(weatherList);
         weatherDate = new WeatherDate(weatherList);
         weatherState = new WeatherState(weatherList);
     }
-
 
     private List<WeatherForecast> prepareWeatherForecastAsList(){
         final Forecast weather = openWeatherClient
@@ -54,14 +46,11 @@ public class WeatherManager {
     }
 
     public List<Integer> getHours(){
-
         return weatherDate.getHours();
-
     }
 
     public List<Integer> getDays(){
         return weatherDate.getDays();
-
     }
 
     public List<String> getWeatherStates(){

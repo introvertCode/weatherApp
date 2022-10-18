@@ -3,7 +3,6 @@ package pl.pogoda.view;
 public enum ColorTheme {
     LIGHT,
     DARK;
-
     public static String getCssPath(ColorTheme colorTheme){
         switch(colorTheme) {
             case LIGHT:

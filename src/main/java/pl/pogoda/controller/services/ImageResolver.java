@@ -17,20 +17,15 @@ public abstract class ImageResolver {
         view.setFitHeight(25);
         view.setPreserveRatio(true);
         view.setSmooth(true);
-
         return view;
-
     }
 
     public static ImageView setSaveBtnImg(){
         Image img = new Image("/other icons/save.png");
-
         ImageView view = new ImageView(img);
         view.setFitHeight(25);
         view.setPreserveRatio(true);
         view.setSmooth(true);
-
         return view;
-
     }
 }
