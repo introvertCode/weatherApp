@@ -1,9 +1,8 @@
 package pl.pogoda;
 
-import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pl.pogoda.model.City;
 import pl.pogoda.view.ViewFactory;
 
 
@@ -14,14 +13,16 @@ public class App extends Application
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
         ViewFactory viewFactory = new ViewFactory();
         viewFactory.showMainWindow();
     }
 
-    @Override
-    public void stop() throws Exception {
 
+
+
+    @Override
+    public void stop(){
     }
 
 

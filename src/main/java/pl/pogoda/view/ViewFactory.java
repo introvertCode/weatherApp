@@ -4,17 +4,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import pl.pogoda.controller.BaseController;
 import pl.pogoda.controller.MainWindowController;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewFactory {
-    private List<Stage> activeStages = new ArrayList<>();
-    private ColorTheme colorTheme = ColorTheme.DARK;;
+
+    private final List<Stage> activeStages = new ArrayList<>();
+    private ColorTheme colorTheme = ColorTheme.DARK;
 
     public ColorTheme getColorTheme() {
         return colorTheme;
@@ -32,7 +31,6 @@ public class ViewFactory {
     private void initializeStage(BaseController baseController){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(baseController.getFxmlName()));
         fxmlLoader.setController(baseController);
-
 
         Parent parent;
         try {
@@ -52,7 +50,7 @@ public class ViewFactory {
         updateStyles();
     }
     public void closeStage(Stage stageToClose){
-        stageToClose.close();//zamyka okno
+        stageToClose.close();
         activeStages.remove(stageToClose);
     }
     public void updateStyles() {
@@ -60,7 +58,6 @@ public class ViewFactory {
             Scene scene = stage.getScene();
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource(ColorTheme.getCssPath(colorTheme)).toExternalForm());
-
         }
     }
 

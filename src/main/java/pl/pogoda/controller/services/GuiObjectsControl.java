@@ -2,8 +2,6 @@ package pl.pogoda.controller.services;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,22 +9,17 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public abstract class GuiObjectsControll {
+public abstract class GuiObjectsControl {
 
     public static void setCollapsingTitledPanes(List<TitledPane> allTitledPanes){
         int amountOfTitlePanes = allTitledPanes.size();
-
         for (int i = 0; i < amountOfTitlePanes; i++){
-            int finalI = i;
-            allTitledPanes.get(i).expandedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                    allTitledPanes.get(finalI).setDisable(true);
-                    TitledPane currentTitledPane = allTitledPanes.get(finalI);
-                    int indexOfCollapsedTitledPane = finalI;
-                    boolean isTitledPaneExpanded = allTitledPanes.get(finalI).isExpanded();
-                    collapsingTitledPanesAnimation(isTitledPaneExpanded, indexOfCollapsedTitledPane, currentTitledPane, allTitledPanes);
-                }
+            int indexOfCurrentTitledPane = i;
+            allTitledPanes.get(i).expandedProperty().addListener((observableValue, aBoolean, t1) -> {
+                allTitledPanes.get(indexOfCurrentTitledPane).setDisable(true);
+                TitledPane currentTitledPane = allTitledPanes.get(indexOfCurrentTitledPane);
+                boolean isTitledPaneExpanded = allTitledPanes.get(indexOfCurrentTitledPane).isExpanded();
+                collapsingTitledPanesAnimation(isTitledPaneExpanded, indexOfCurrentTitledPane, currentTitledPane, allTitledPanes);
             });
         }
     }
@@ -49,7 +42,7 @@ public abstract class GuiObjectsControll {
             indexOfCurrentTp = allTitledPanes.indexOf(tp);
             tp.setDisable(true);
             in = new TranslateTransition(Duration.millis(300), tp);
-            if (indexOfCurrentTp > indexOfCollapsedTitledPane && tp.getParent().getId() == currentTitledPane.getParent().getId() ) {
+            if (indexOfCurrentTp > indexOfCollapsedTitledPane && tp.getParent().getId().equals( currentTitledPane.getParent().getId())) {
                 in.setFromY(positionOfTitledPane);
                 in.setToY(positionOfTitledPane + yOfsset);
                 in.setInterpolator(Interpolator.EASE_IN);
@@ -65,14 +58,11 @@ public abstract class GuiObjectsControll {
     public static void centerImage(ImageView imageView) {
         Image img = imageView.getImage();
         if (img != null) {
-
             double ratioX = imageView.getFitWidth() / img.getWidth();
             double ratioY = imageView.getFitHeight() / img.getHeight();
             double reducCoeff = Math.min(ratioX, ratioY);
-
             double w = img.getWidth() * reducCoeff;
             double h = img.getHeight() * reducCoeff;
-
             imageView.setTranslateX((imageView.getFitWidth() - w) / 2);
             imageView.setTranslateY((imageView.getFitHeight() - h) / 2);
         }

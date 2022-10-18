@@ -1,62 +1,36 @@
 package pl.pogoda.controller.weatherData;
 
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
-import pl.pogoda.controller.services.DateService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Weather {
-    private List<WeatherForecast> weatherList;
-    private LocalDateTime date;
-    private LocalDateTime today;
-
+    private final List<WeatherForecast> weatherList;
     private  int hour;
     private  int day;
 
-
     public Weather(List<WeatherForecast> weatherList) {
         this.weatherList = weatherList;
-        this.today = DateService.getTodayDate();;
     }
 
     private void setTimeOfForecast(WeatherForecast weatherForecast){
-        date = weatherForecast.getForecastTime();
+        LocalDateTime date = weatherForecast.getForecastTime();
         hour = date.getHour();
         day = date.getDayOfMonth();
     }
 
     protected <T> List<T> setDataInList(int type){
         List<T> results = new ArrayList<>();
-        T data = null;
-
+        T data;
         for (WeatherForecast w :weatherList) {
-                setTimeOfForecast(w);
-                data = returnDataAccordingToType(type, w);
-
+            setTimeOfForecast(w);
+            data = returnDataAccordingToType(type, w);
             if (hour == 8 || hour == 14 || hour == 20){
-                results.add((T)data);
-
+                results.add(data);
             }
-
-//            if (currentDay == day){
-//                if (hour == 8 || hour == 14 || hour == 20 || hour == 23){
-//                    results.add((T)data);
-//
-//                }
-//
-//            } else {
-//                if (hour == 8 || hour == 14 || hour == 20){
-//                    results.add((T)data);
-//
-//                }
-//            }
-//            System.out.println(w.getWeatherState().getIconId());
-//            System.out.println(w.getForecastTime().getClass().getName());
-//            System.out.println(w.getForecastTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));//string
         }
-
         return results;
     }
 

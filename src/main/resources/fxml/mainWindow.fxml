@@ -17,12 +17,12 @@
    <content>
       <AnchorPane fx:id="mainPane" prefHeight="899.0" prefWidth="951.0" styleClass="container">
          <children>
-            <Button fx:id="checkWeatherBtn" layoutX="304.0" layoutY="831.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="344.0" text="Check weather" AnchorPane.rightAnchor="303.0" />
+            <Button fx:id="checkWeatherBtn" layoutX="304.0" layoutY="831.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="344.0" text="Sprawdź pogodę" AnchorPane.rightAnchor="303.0" />
             <Separator layoutX="476.0" layoutY="103.0" orientation="VERTICAL" prefHeight="707.0" prefWidth="6.0" AnchorPane.rightAnchor="471.0" />
             <Label layoutX="335.0" layoutY="18.0" text="Miasto:" />
-            <TextField fx:id="homeCityTextField" layoutX="379.0" layoutY="14.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="381.0" />
+            <TextField fx:id="homeCityTextField" layoutX="379.0" layoutY="14.0" prefHeight="25.0" prefWidth="191.0" promptText="np. Warszawa, PL lub Warszawa" AnchorPane.rightAnchor="381.0" />
             <Label layoutX="335.0" layoutY="57.0" text="Miasto:" AnchorPane.rightAnchor="577.0" />
-            <TextField fx:id="destinationCityTextField" layoutX="379.0" layoutY="53.0" prefHeight="25.0" prefWidth="191.0" AnchorPane.rightAnchor="381.0" />
+            <TextField fx:id="destinationCityTextField" layoutX="379.0" layoutY="53.0" prefHeight="25.0" prefWidth="191.0" promptText="np. Madryt, ES lub Madryt" AnchorPane.rightAnchor="381.0" />
             <Label fx:id="city1" layoutX="138.0" layoutY="95.0" prefHeight="17.0" prefWidth="177.0" />
             <Label fx:id="city2" layoutX="626.0" layoutY="95.0" prefHeight="17.0" prefWidth="177.0" />
             <AnchorPane fx:id="firstCityAnchorPane" layoutX="7.0" layoutY="120.0" styleClass="container" AnchorPane.leftAnchor="7.0">
@@ -615,7 +615,8 @@
             </AnchorPane>
             <Label fx:id="errorLabel" layoutX="226.0" layoutY="868.0" prefHeight="17.0" prefWidth="500.0" styleClass="errorText" textAlignment="CENTER" />
             <Button fx:id="themeSwitch" layoutX="875.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
-            <Button fx:id="saveCitiesAndThemeBtn" layoutX="586.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" />
+            <Button fx:id="saveCitiesAndThemeBtn" layoutX="593.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" />
+            <Label fx:id="savedLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="580.0" layoutY="70.0" prefHeight="17.0" prefWidth="61.0" textAlignment="CENTER" textFill="#17dd1d" />
          </children>
       </AnchorPane>
    </content>

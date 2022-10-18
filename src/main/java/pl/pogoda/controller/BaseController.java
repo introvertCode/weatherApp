@@ -5,7 +5,7 @@ import pl.pogoda.view.ViewFactory;
 public class BaseController {
 
     protected ViewFactory viewFactory;
-    private String fxmlName;
+    private final String fxmlName;
 
     public BaseController(ViewFactory viewFactory, String fxmlName) {
         this.viewFactory = viewFactory;

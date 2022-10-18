@@ -7,8 +7,8 @@ import java.util.List;
 
 public class WeatherDate extends Weather{
 
-    List<Integer> hours = new ArrayList<Integer>();
-    List<Integer> days = new ArrayList<Integer>();
+    List<Integer> hours = new ArrayList<>();
+    List<Integer> days = new ArrayList<>();
     private final static int TYPE_DAYS = 1;
     private final static int TYPE_HOURS = 2;
 
@@ -27,10 +27,7 @@ public class WeatherDate extends Weather{
 
 
     private void setWeatherDate(){
-
         days = setDataInList(TYPE_DAYS);
         hours = setDataInList(TYPE_HOURS);
-
-        return;
     }
 }
