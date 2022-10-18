@@ -22,6 +22,9 @@ import pl.pogoda.view.ColorTheme;
 import pl.pogoda.view.ViewFactory;
 import javafx.geometry.Pos;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.awt.Desktop;
 
 public class MainWindowController extends BaseController implements Initializable{
 
@@ -64,6 +68,8 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private Button saveCitiesAndThemeBtn;
     @FXML
+    private Button checkCountriesCodesBtn;
+    @FXML
     private Label savedLabel;
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
@@ -79,6 +85,7 @@ public class MainWindowController extends BaseController implements Initializabl
         viewWeatherForCities();
         setButtons();
         GuiObjectsControl.setCollapsingTitledPanes(allTitledPanes);
+
     }
 
     private void setButtons(){
@@ -87,6 +94,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setCheckWeatherBtnClickAction();
         setThemeSwitchBtnClickAction();
         setWriteDataToFileBtnClickAction();
+        setCheckCountriesCodesBtnClickAction();
         checkWeatherBtn.setDefaultButton(true);
         themeSwitch.setTooltip(new Tooltip("Zmień tryb kolorów"));
         checkWeatherBtn.setTooltip(new Tooltip("Sprawdź pogodę dla miast (enter)"));
@@ -156,6 +164,15 @@ public class MainWindowController extends BaseController implements Initializabl
             errorLabel.setText("");
             setCitiesList();
             viewWeatherForCities();
+        });
+    }
+    private void setCheckCountriesCodesBtnClickAction(){
+        checkCountriesCodesBtn.setOnAction(e -> {
+            try {
+                Desktop.getDesktop().browse(new URL("https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements").toURI());
+            } catch (IOException | URISyntaxException f) {
+                f.printStackTrace();
+            }
         });
     }
 
