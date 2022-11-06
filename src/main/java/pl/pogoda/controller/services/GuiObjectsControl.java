@@ -9,7 +9,11 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public abstract class GuiObjectsControl {
+public class GuiObjectsControl {
+
+    private GuiObjectsControl(){
+
+    }
 
     public static void setCollapsingTitledPanes(List<TitledPane> allTitledPanes){
         int amountOfTitlePanes = allTitledPanes.size();

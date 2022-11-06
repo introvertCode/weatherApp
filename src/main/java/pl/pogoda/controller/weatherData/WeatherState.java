@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherState extends Weather{
-    private List<String> weatherStatesInEnglish = new ArrayList<>();
-    private final static int TYPE_ENGLISH = 4;
-    private final static int TYPE_POLISH = 5;
+    private final List<String> weatherStatesInEnglish = new ArrayList<>();
     List<String> weatherStatesInPolish = new ArrayList<>();
     List<Image> weatherStatesImages = new ArrayList<>();
 
@@ -22,9 +20,6 @@ public class WeatherState extends Weather{
         setWeatherState();
     }
 
-    public List<String> getWeatherStatesInEnglish() {
-        return weatherStatesInEnglish;
-    }
     public List<String> getWeatherStatesInPolish() {
         return weatherStatesInPolish;
     }
@@ -34,8 +29,7 @@ public class WeatherState extends Weather{
 
 
     private void setWeatherState(){
-        weatherStatesInEnglish = setDataInList(TYPE_ENGLISH);
-        weatherStatesInPolish = setDataInList(TYPE_POLISH);
+        setStates();
         createImageList();
     }
 
@@ -44,4 +38,44 @@ public class WeatherState extends Weather{
             weatherStatesImages.add(weatherStateAsImage.getImage(stateString));
         }
     }
+
+    private String getWeatherStateInPolish(String weatherState){
+        String polishWeather;
+        ArrayList<Integer> indexesOfParenthesis = findParenthesis(weatherState);
+        polishWeather = weatherState.substring(indexesOfParenthesis.get(0) + 1, indexesOfParenthesis.get(1));
+        return polishWeather;
+    }
+
+    private String getWeatherStateInEnglish(String weatherState){
+        String englishWeather;
+        int startOfTitle = 15;
+        ArrayList<Integer> indexesOfParenthesis = findParenthesis(weatherState);
+        englishWeather = weatherState.substring(startOfTitle, indexesOfParenthesis.get(0));
+        return englishWeather;
+    }
+
+    private void setStates(){
+        String statePolish;
+        String stateEnglish;
+        for (WeatherForecast weatherForecast :weatherList) {
+            hour = weatherForecast.getForecastTime().getHour();
+            statePolish = getWeatherStateInPolish(weatherForecast.getWeatherState().toString());
+            stateEnglish = getWeatherStateInEnglish(weatherForecast.getWeatherState().toString());
+            if (checkHour(hour)){
+                weatherStatesInPolish.add(statePolish);
+                weatherStatesInEnglish.add(stateEnglish);
+            }
+        }
+    }
+
+    private ArrayList<Integer> findParenthesis(String stringToSearch){
+        ArrayList<Integer> indexesOfParenthesis = new ArrayList<>();
+        for (int i =0; i < stringToSearch.length(); i++) {
+            if (stringToSearch.charAt(i) == '(' || stringToSearch.charAt(i) == ')'){
+                indexesOfParenthesis.add(i);
+            }
+        }
+        return indexesOfParenthesis;
+    }
+
 }

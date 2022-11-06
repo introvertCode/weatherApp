@@ -5,16 +5,14 @@ import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherDate extends Weather{
+public class WeatherDate extends Weather {
 
     List<Integer> hours = new ArrayList<>();
     List<Integer> days = new ArrayList<>();
-    private final static int TYPE_DAYS = 1;
-    private final static int TYPE_HOURS = 2;
 
     public WeatherDate(List<WeatherForecast> weatherList) {
         super(weatherList);
-        setWeatherDate();
+        setWeatherDateList();
     }
 
     public List<Integer> getHours() {
@@ -25,9 +23,15 @@ public class WeatherDate extends Weather{
         return days;
     }
 
+    private void setWeatherDateList(){
 
-    private void setWeatherDate(){
-        days = setDataInList(TYPE_DAYS);
-        hours = setDataInList(TYPE_HOURS);
+        for (WeatherForecast weatherForecast :weatherList) {
+            hour = weatherForecast.getForecastTime().getHour();
+            day = weatherForecast.getForecastTime().getDayOfMonth();
+            if (checkHour(hour)){
+                hours.add(hour);
+                days.add(day);
+            }
+        }
     }
 }
