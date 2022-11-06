@@ -37,7 +37,6 @@ public class WeatherManager {
             .count(45)
             .retrieve()
             .asJava();
-
         return weather.getWeatherForecasts();
     }
 

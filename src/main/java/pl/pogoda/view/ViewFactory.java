@@ -9,6 +9,7 @@ import pl.pogoda.controller.MainWindowController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ViewFactory {
 
@@ -49,15 +50,11 @@ public class ViewFactory {
         activeStages.add(stage);
         updateStyles();
     }
-    public void closeStage(Stage stageToClose){
-        stageToClose.close();
-        activeStages.remove(stageToClose);
-    }
     public void updateStyles() {
         for(Stage stage:activeStages) {
             Scene scene = stage.getScene();
             scene.getStylesheets().clear();
-            scene.getStylesheets().add(getClass().getResource(ColorTheme.getCssPath(colorTheme)).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(colorTheme.path)).toExternalForm());
         }
     }
 
