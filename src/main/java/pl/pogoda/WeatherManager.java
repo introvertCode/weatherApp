@@ -28,7 +28,7 @@ public class WeatherManager {
         weatherState = new WeatherState(weatherList);
     }
 
-    private List<WeatherForecast> prepareWeatherForecastAsList(){
+    List<WeatherForecast> prepareWeatherForecastAsList(){
         final Forecast weather = openWeatherClient
             .forecast5Day3HourStep()
             .byCityName(city.getCity())
