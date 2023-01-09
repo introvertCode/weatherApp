@@ -68,7 +68,7 @@ public class WeatherState extends Weather{
         }
     }
 
-    private ArrayList<Integer> findParenthesis(String stringToSearch){
+    ArrayList<Integer> findParenthesis(String stringToSearch){
         ArrayList<Integer> indexesOfParenthesis = new ArrayList<>();
         for (int i =0; i < stringToSearch.length(); i++) {
             if (stringToSearch.charAt(i) == '(' || stringToSearch.charAt(i) == ')'){
