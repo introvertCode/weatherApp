@@ -28,12 +28,12 @@ public class WeatherState extends Weather{
     }
 
 
-    private void setWeatherState(){
+    void setWeatherState(){
         setStates();
         createImageList();
     }
 
-    private void createImageList(){
+    void createImageList(){
         for(String stateString : weatherStatesInEnglish) {
             weatherStatesImages.add(weatherStateAsImage.getImage(stateString));
         }
@@ -54,7 +54,7 @@ public class WeatherState extends Weather{
         return englishWeather;
     }
 
-    private void setStates(){
+    void setStates(){
         String statePolish;
         String stateEnglish;
         for (WeatherForecast weatherForecast :weatherList) {

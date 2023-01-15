@@ -34,13 +34,13 @@ import java.awt.Desktop;
 
 public class MainWindowController extends BaseController implements Initializable{
 
-    private final List<TextField> citiesTextFields = new ArrayList<>();
+    final List<TextField> citiesTextFields = new ArrayList<>();
     private List<City> cities = new ArrayList<>();
     private final List<String> citiesInPolish = new ArrayList<>();
     private LocalDateTime today;
     private final List<TitledPane> titledPanes = new ArrayList<>();
     private final List<AnchorPane> citiesAnchorPanes = new ArrayList<>();
-    private List<Integer> hours = new ArrayList<>();
+    List<Integer> hours = new ArrayList<>();
     private List<Integer> days = new ArrayList<>();
     private List<String> weatherStatesInPolish = new ArrayList<>();
     private List<Image> weatherStatesImages = new ArrayList<>();
@@ -168,7 +168,7 @@ public class MainWindowController extends BaseController implements Initializabl
         });
     }
 
-    private void clearData() {
+    void clearData() {
         hours.clear();
         days.clear();
         weatherStatesInPolish.clear();
@@ -259,7 +259,7 @@ public class MainWindowController extends BaseController implements Initializabl
          this.cities = cities;
     }
 
-    private WeatherManager setWeatherController(City city) {
+    WeatherManager setWeatherController(City city) {
         return new WeatherManager(city);
     }
 
