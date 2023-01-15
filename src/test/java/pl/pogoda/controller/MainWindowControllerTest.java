@@ -1,6 +1,5 @@
 package pl.pogoda.controller;
 
-import javafx.scene.control.TextField;
 import org.junit.jupiter.api.Test;
 import pl.pogoda.WeatherManager;
 import pl.pogoda.model.City;
