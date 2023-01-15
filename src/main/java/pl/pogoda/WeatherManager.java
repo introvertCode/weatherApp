@@ -59,5 +59,9 @@ public class WeatherManager {
     public List<Image> getWeatherStatesImg(){
         return weatherState.getWeatherStatesImages();
     }
+
+    public City getCity() {
+        return city;
+    }
 }
 
