@@ -46,6 +46,4 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-#config class file
-/src/main/java/pl/pogoda/Config.java
 
