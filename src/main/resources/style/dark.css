@@ -1,0 +1,94 @@
+* {
+    -fx-my-background-color-color: #3a4559;
+    -fx-my-background-color-color-alt: #616c87;
+    -fx-my-font-color: white;
+    -fx-my-font-color-highlighted: white;
+	-fx-my-default-element-color: #353b4a;
+	-fx-my-error-text-fill: #eb283f;
+}
+
+.container{
+    -fx-background-color: -fx-my-background-color-color;
+    -fx-background: -fx-my-background-color-color;
+}
+.errorText{
+    -fx-text-fill: -fx-my-error-text-fill;
+    -fx-font-weight: bold;
+     -fx-alignment: center;
+
+}
+
+Button, Label, ChoiceBox, Slider, TextField, .menu-button{
+    -fx-text-fill: -fx-my-font-color;
+}
+Button {
+    -fx-background-color: -fx-my-default-element-color;
+}
+Button:hover {
+    -fx-background-color: -fx-my-background-color-color-alt;
+}
+
+Slider .axis {
+    -fx-tick-label-fill: -fx-my-font-color;
+}
+Slider .track{
+    -fx-background-color: -fx-my-default-element-color;
+}
+Slider .track:hover{
+    -fx-background-color: -fx-my-background-color-color-alt;
+}
+Slider .thumb{
+    -fx-background-color: #85939e;
+}
+.text-field {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 3, 2, 2;
+    -fx-padding: 0.25em 0.416667em  0.333333em 0.416667em; /* 3 5 4 5 */
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-cursor: text;
+    -fx-control-inner-background: -fx-my-default-element-color ;
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
+    -fx-background-insets: -0.4, 1, 2;
+    -fx-background-radius: 3.4, 2, 2;
+    -fx-prompt-text-fill: transparent;
+}
+
+.titled-pane {
+-fx-background:-fx-my-background-color-color-alt;
+-fx-text-fill: -fx-my-font-color
+}
+
+.titled-pane > .title
+{
+-fx-background-color: #b6b6d6, #b6b6d6, -fx-my-background-color-color-alt;
+
+}
+
+
+.titled-pane > .title > .arrow-button .arrow
+{
+-fx-background-color: #d5d5f0, #d5d5f0;
+-fx-background-insets: 1 0 -1 0, 0;
+-fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+-fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+.titled-pane > *.content {
+    -fx-border-color: #b6b6d6;
+    -fx-border-insets: -1 0 0 0;
+    -fx-background-color: linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
+}
+
+
+
+.ScrollPane {
+-fx-background-color: -fx-my-background-color-color;
+-fx-background: -fx-my-background-color-color;
+}
+Label{
+ -fx-alignment: center;
+}
