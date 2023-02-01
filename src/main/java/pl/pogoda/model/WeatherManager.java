@@ -1,4 +1,4 @@
-package pl.pogoda;
+package pl.pogoda.model;
 
 import com.github.prominence.openweathermap.api.OpenWeatherMapClient;
 import com.github.prominence.openweathermap.api.enums.Language;
@@ -6,10 +6,10 @@ import com.github.prominence.openweathermap.api.enums.UnitSystem;
 import com.github.prominence.openweathermap.api.model.forecast.Forecast;
 import com.github.prominence.openweathermap.api.model.forecast.WeatherForecast;
 import javafx.scene.image.Image;
+import pl.pogoda.Config;
 import pl.pogoda.controller.weatherData.WeatherDate;
 import pl.pogoda.controller.weatherData.WeatherState;
 import pl.pogoda.controller.weatherData.WeatherTemperature;
-import pl.pogoda.model.City;
 import java.util.List;
 
 public class WeatherManager {

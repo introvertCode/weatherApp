@@ -9,14 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import pl.pogoda.WeatherManager;
+import pl.pogoda.model.WeatherManager;
 import pl.pogoda.controller.persistence.DataAccess;
 import pl.pogoda.controller.persistence.SavedState;
 import pl.pogoda.controller.services.DateService;
 import pl.pogoda.controller.services.GuiObjectsControl;
 import pl.pogoda.controller.services.ImageResolver;
 import pl.pogoda.controller.services.WeatherServices;
-import org.apache.commons.lang3.StringUtils;
 import pl.pogoda.model.City;
 import pl.pogoda.view.ColorTheme;
 import pl.pogoda.view.ViewFactory;
@@ -251,7 +250,6 @@ public class MainWindowController extends BaseController implements Initializabl
                  String rawCity = tf.getText();
                  byte[] bytes = rawCity.getBytes(StandardCharsets.UTF_8);
                  String utf8EncodedCity = new String(bytes, StandardCharsets.UTF_8);
-                 utf8EncodedCity = StringUtils.stripAccents(utf8EncodedCity);
                  City city = new City(utf8EncodedCity);
                  cities.add(city);
              }
