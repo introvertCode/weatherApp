@@ -1,7 +1,7 @@
 package pl.pogoda.controller;
 
 import org.junit.jupiter.api.Test;
-import pl.pogoda.WeatherManager;
+import pl.pogoda.model.WeatherManager;
 import pl.pogoda.model.City;
 import pl.pogoda.view.ViewFactory;
 
